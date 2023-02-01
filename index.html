@@ -1,44 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ticketmaster Event Planner</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Slab:wght@100&family=Sofia+Sans+Extra+Condensed:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Slab:wght@100&family=Sofia+Sans+Extra+Condensed:wght@100&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./assets/css/style.css" />
-</head>
-<body class="bg-blue-200">
-
+  </head>
+  <body class="bg-blue-200">
     <main>
-        <div class="container mx-auto px-10">
-            <div class="grid grid-cols-12 gap-2 min-h-screen">
-                <div class="col-span-3 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700">
-                    <div class="flex flex-row border-b border-white m-2">
-                        <input type="text" id="searchCity" name="searchCity" placeholder="Enter City Name" class="w-3/4 bg-transparent focus:outline-none placeholder-white placeholder-opacity-50">
-                        <button class="ml-auto hover:tracking-wide">Search</button>
-                    </div>
-                </div>
-                <div class="col-span-9 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700 flex flex-col">
-                    <header class="m-2 text-center">
-                        <h1 class="text-2xl font-bold">City Event Planner</h1>
-                        <p>Find upcoming events for any city!</p>
-                    </header>
-                    <div class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2">
-                        <div>
-                            <h2 class="m-2 text-center underline underline-offset-8 font-bold">Events</h2>
-                        </div>
-                        <div>
-                            <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
-                        </div>
-                    </div>
-                </div>
+      <div class="container mx-auto px-10">
+        <div class="grid grid-cols-12 gap-2 min-h-screen">
+          <div
+            class="col-span-3 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700"
+          >
+            <div class="flex flex-row border-b border-white m-2">
+              <input
+                type="text"
+                id="searchCity"
+                name="searchCity"
+                placeholder="Enter City Name"
+                class="w-3/4 bg-transparent focus:outline-none placeholder-white placeholder-opacity-50"
+              />
+              <button class="ml-auto hover:tracking-wide">Search</button>
             </div>
+          </div>
+
+          <div
+            class="col-span-9 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700 flex flex-col"
+          >
+            <header class="m-2 text-center">
+              <h1 class="text-2xl font-bold">City Event Planner</h1>
+              <p>Find upcoming events for any city!</p>
+            </header>
+            <div
+              class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2"
+            >
+              <div>
+                <h2
+                  class="m-2 text-center underline underline-offset-8 font-bold"
+                >
+                  Events
+                </h2>
+
+                <div class="border-solid h-full">
+                  <div>
+                    <p class="text-white m-2 text-center">
+                      Event Information Search Results
+                    </p>
+                    <div>
+                      <div>
+                        <div class="flex flex-row p-1 gap-2">
+                        <div class="flex-[3] border-solid border-2 pl-2 pt-1 content-center">
+                          <p>Event1</p>
+                        </div  >
+                        <!-- added part -->
+                        <button class="border-solid border-2 p-1 hover:bg-blue-700">Add to Calendar</button>
+                        </div>
+
+                        <div class="h-0 w-full eventInfoContainer hidden">
+                          <!-- some information regarding the event -1 -->
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex flex-row p-1 gap-2">
+                        <div class="flex-[3] border-solid border-2 pl-2 pt-1 content-center">
+                          <p>Event1</p>
+                        </div  >
+                        <button class="border-solid border-2 p-1 hover:bg-blue-700">Add to Calendar</button>
+                        </div>
+
+                        <div class="h-0 w-full eventInfoContainer hidden">
+                          <!-- some information regarding the event -2 -->
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex flex-row p-1 gap-2">
+                        <div class="flex-[3] border-solid border-2 pl-2 pt-1 content-center">
+                          <p>Event1</p>
+                        </div  >
+                        <button class="border-solid border-2 p-1 hover:bg-blue-700">Add to Calendar</button>
+                        </div>
+
+                        <div class="h-0 w-full eventInfoContainer hidden">
+                          <!-- some information regarding the event -3 -->
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex flex-row p-1 gap-2">
+                        <div class="flex-[3] border-solid border-2 pl-2 pt-1 content-center">
+                          <p>Event1</p>
+                        </div  >
+                        <button class="border-solid border-2 p-1 hover:bg-blue-700">Add to Calendar</button>
+                        </div>
+
+                        <div class="h-0 w-full eventInfoContainer hidden">
+                          <!-- some information regarding the event -4 -->
+                        </div>
+                      </div>
+                      <!-- ***** -->
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h2
+                  class="m-2 text-center underline underline-offset-8 font-bold"
+                >
+                  Your Calender
+                </h2>
+
+                <!-- added part -->
+                <div class="flex flex-row justify-center w-full mt-10">
+                  <div class="h-full">
+                    <iframe
+                      src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%234285F4&ctz=America%2FToronto&showTitle=1&showDate=0&showPrint=0&showTz=0&showCalendars=0&showTabs=0&src=NzkzYjk3YTQyMjc2MzhlMzViZGY2NThjMmI2YjNhNzdlZTVjNDhkM2ZkOTBlM2U5YmFhN2EzZjA1ODQ2OWE3MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%237CB342"
+                      style="border-width: 0"
+                      width="500"
+                      height="700"
+                      frameborder="0"
+                      scrolling="no"
+                    ></iframe>
+                  </div>
+                </div>
+
+                <!-- ***** -->
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>

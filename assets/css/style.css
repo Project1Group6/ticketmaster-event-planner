@@ -1,5 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body{
-    font-family: 'Dancing Script', cursive;
+    /* font-family: 'Dancing Script', cursive; */
 }
 
 p{
