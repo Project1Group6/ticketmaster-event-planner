@@ -10,4 +10,6 @@ Search for events by city, you will be presented with upcoming events through th
 
 ## APIs
 
-This project will use the TicketMaster API and the Google Calendar API
+This project will use the TicketMaster API and the Calendarific API
+https://calendarific.com/api-documentation
+https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
