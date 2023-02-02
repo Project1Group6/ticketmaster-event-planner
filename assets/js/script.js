@@ -51,11 +51,9 @@ function init(){
             errorMessageElement.textContent = "Please enter a city in the text box before clicking search."
         }
 
-        apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey={apikey}"
+        apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?city="+city+"&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe"
     })
 }
-
- 
 
 window.addEventListener("load", init);
 backArrow.on( "click", function(){
@@ -70,4 +68,4 @@ forwardArrow.on( "click", function(){
     populateCalander(newDate) // populate calander with new month
 });
 
-init();
+//init();
