@@ -4,6 +4,9 @@ var calnder = $('#CalanderDays');
 var calnderTitle = $('#calanderTitle');
 var backArrow = $('#backArrow');
 var forwardArrow = $('#forwardArrow');
+var searchButtonElement = document.getElementById("search-button");
+var textBoxElement = document.getElementById("text-box");
+var errorMessageElement = document.getElementById("error-message");
 
 
 function createCalander(){
@@ -40,6 +43,16 @@ function init(){
     // the purpose of the function is to create a calander object and populate with current month
     createCalander();
     populateCalander(today);
+
+    searchButtonElement.addEventListener("click", function(){
+        console.log(textBoxElement);
+        if (textBoxElement === null){
+            console.log("here");
+            errorMessageElement.textContent = "Please enter a city in the text box before clicking search."
+        }
+
+        apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey={apikey}"
+    })
 }
 
  
@@ -56,3 +69,5 @@ forwardArrow.on( "click", function(){
     var newDate = currentCalanderPosition.add(1, 'month') // add a month to the current calander date
     populateCalander(newDate) // populate calander with new month
 });
+
+init();
