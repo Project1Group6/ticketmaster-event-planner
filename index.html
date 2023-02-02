@@ -18,9 +18,10 @@
             <div class="grid grid-cols-12 gap-2 min-h-screen">
                 <div class="col-span-3 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700">
                     <div class="flex flex-row border-b border-white m-2">
-                        <input type="text" id="searchCity" name="searchCity" placeholder="Enter City Name" class="w-3/4 bg-transparent focus:outline-none placeholder-white placeholder-opacity-50">
-                        <button class="ml-auto hover:tracking-wide">Search</button>
+                        <input type="text" id="searchCity text-box" name="searchCity" placeholder="Enter City Name" class="w-3/4 bg-transparent focus:outline-none placeholder-white placeholder-opacity-50">
+                        <button class="ml-auto hover:tracking-wide" id="search-button">Search</button>
                     </div>
+                    <div id="error-message"></div>
                 </div>
                 <div class="col-span-9 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700 flex flex-col">
                     <header class="m-2 text-center">
