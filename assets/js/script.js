@@ -5,10 +5,10 @@ var calnderTitle = $('#calanderTitle');
 var backArrow = $('#backArrow');
 var forwardArrow = $('#forwardArrow');
 var searchButtonElement = document.getElementById("search-button");
-var textBoxElement = document.getElementById("text-box");
+var textBoxElement = document.getElementById("searchCity text-box");
 var errorMessageElement = document.getElementById("error-message");
 const holidayAPI = 'https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59'
-
+var mainEventsElement = document.getElementById("mainEventsContainer");
 
 function createCalander(){
     // create 42 divs representing the days to cover all possible distributions of days
@@ -53,14 +53,79 @@ function init(){
     populateCalander(today);
 
     searchButtonElement.addEventListener("click", function(){
-        console.log(textBoxElement);
-        if (textBoxElement === null){
+        console.log(textBoxElement.value);
+        if (textBoxElement.value === null){
             console.log("here");
             errorMessageElement.textContent = "Please enter a city in the text box before clicking search."
         }
 
+        //var city = $('#input:text').val();
+        var city = textBoxElement.value;
+        //console.log(textBoxElement);
         apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?city="+city+"&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe"
+        //apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?city=Toronto&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe"
+        fetch(apiUrl)
+            .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (tmData) {
+                    console.log(tmData);
+                    displayEvents(tmData);
+                });
+            } else {
+                alert("Error: " + response.statusText);
+                errorMessageElement.textContent = "Error when connecting to the Ticket Master API."
+            }
+            })
+            .catch(function (error) {
+                errorMessageElement.textContent = "Unable to connect to the Ticket Master API."
+            });
+            console.log(apiUrl);
     })
+}
+
+function displayEvents(tmData){
+    countryCode = tmData._embedded.events[0]._embedded.venues[0].country.countryCode;
+    console.log(countryCode);
+    for (var i = 0; i < tmData._embedded.events.length; i++){
+        var currentEventElement = document.createElement("div");
+        var currentEventStartTimeElement = document.createElement("div");
+        var currentEventNameElement = document.createElement("div");
+        // var currentEventPriceRangeElement = document.createElement("div");
+        var currentEventVenueElement = document.createElement("div");
+        var currentEventVenueAddressElement = document.createElement("div");
+        var currentEventURLElement = document.createElement("a");
+        // var maxPrice = tmData._embedded.events[i].priceRanges.max;
+        // var minPrice = tmData._embedded.events[i].priceRanges.min;
+        // var priceCurrency = tmData._embedded.events[i].priceRanges.currency;
+        var address = tmData._embedded.events[i]._embedded.venues[0].address.line1;
+        var city = tmData._embedded.events[i]._embedded.venues[0].city.name;
+        var state = tmData._embedded.events[i]._embedded.venues[0].state.stateCode;
+        var postalCode = tmData._embedded.events[i]._embedded.venues[0].postalCode;
+
+        currentEventElement.id = "main-event-element";
+        currentEventStartTimeElement.id = "event-start-element";
+        currentEventNameElement.id = "event-name-element";
+        // currentEventPriceRangeElement.id = "event-price-element";
+        currentEventVenueElement.id = "event-venue-element";
+        currentEventVenueAddressElement.id = "event-address-element";
+        currentEventURLElement.id = "event-url-element";
+
+        currentEventStartTimeElement.innerHTML = tmData._embedded.events[i].dates.start.localDate;
+        currentEventNameElement.innerHTML = tmData._embedded.events[i].name
+        // currentEventPriceRangeElement.innerHTML = minPrice + "-" + maxPrice + " " + priceCurrency
+        currentEventVenueElement.innerHTML = tmData._embedded.events[i]._embedded.venues[0].name
+        currentEventVenueAddressElement.innerHTML = address + ", " + city + ", " + state + " " + countryCode + ", " + postalCode;
+        currentEventURLElement.innerHTML = tmData._embedded.events[i].url;
+
+        currentEventElement.append(currentEventNameElement);
+        currentEventElement.append(currentEventVenueElement);
+        currentEventElement.append(currentEventVenueAddressElement);
+        currentEventElement.append(currentEventStartTimeElement);
+        // currentEventElement.append(currentEventPriceRangeElement);
+        currentEventElement.append(currentEventURLElement);
+        
+        mainEventsElement.append(currentEventElement);
+    }
 }
 
 window.addEventListener("load", init);
