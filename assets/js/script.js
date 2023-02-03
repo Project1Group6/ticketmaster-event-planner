@@ -7,6 +7,7 @@ var forwardArrow = $('#forwardArrow');
 var searchButtonElement = document.getElementById("search-button");
 var textBoxElement = document.getElementById("text-box");
 var errorMessageElement = document.getElementById("error-message");
+const holidayAPI = 'https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59'
 
 
 function createCalander(){
@@ -18,7 +19,14 @@ function createCalander(){
     }
 }
 
- 
+// function that calls the Calendarific API: use getAPI(calendarAPI) plus parameters to call
+var holidayData
+async function getAPI(url) {
+    const response = await fetch(url);
+    holidayData = await response.json()
+}
+
+
 function populateCalander(date){
     // given a dayJS date object this function will populate the calander
     localStorage.setItem("currentCalanderPosition", date); // set the new date as the current calander date in localstorage
