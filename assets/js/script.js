@@ -13,7 +13,7 @@ function createCalander(){
     // create 42 divs representing the days to cover all possible distributions of days
     // the 42 divs will be divided in 6 rows of 7 columns
     for(i = 0; i < 42; i++){
-        dayDiv = $('<div/>').addClass('dayDiv self-center py-4');
+        dayDiv = $('<div/>').addClass('dayDiv self-center md:py-4 sm:py-2 sm:text-xs');
         dayDiv.appendTo(calnder);
     }
 }

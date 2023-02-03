@@ -14,38 +14,44 @@
 <body class="bg-blue-200">
 
     <main>
-        <div class="container mx-auto px-10">
-            <div class="grid grid-cols-12 gap-2 min-h-screen">
-                <div class="col-span-3 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700">
-                    <div class="flex flex-row border-b border-white m-2">
+        <div id="mainContainer" class="container mx-auto px-10 sm:px-5 ">
+            <!-- Line 19 adds heading "Ticket Master Event Calendar" only for small screen sizes -->
+            <div id="smallScreenHeading">Ticket Master Event Calendar</div>
+            <div id="mainGrid" class="sm:grid sm:grid-cols-12 sm:gap-2 sm:min-h-screen">
+                <div id="mainSearchContainer" class="col-span-3 bg-sky-500/[.5] text-white md:my-10 sm:my-5 rounded shadow-lg shadow-cyan-700">
+                    <div id="searchDiv" class="flex flex-row border-b border-white m-2">
                         <input type="text" id="searchCity text-box" name="searchCity" placeholder="Enter City Name" class="w-3/4 bg-transparent focus:outline-none placeholder-white placeholder-opacity-50">
                         <button class="ml-auto hover:tracking-wide" id="search-button">Search</button>
                     </div>
-                    <div id="error-message"></div>
+                    <div id="error-message" class = "sm:text-center px-1 text-purple-700 "></div>
                 </div>
-                <div class="col-span-9 bg-sky-500/[.5] text-white my-10 rounded shadow-lg shadow-cyan-700 flex flex-col">
+                <div id = "mainEventPlannerContainer" class="col-span-9 bg-sky-500/[.5] text-white md:my-10 sm:my-5 rounded shadow-lg shadow-cyan-700 flex flex-col">
                     <header class="m-2 text-center">
+                        <div id = "cityEventPlannerH1">
                         <h1 class="text-2xl font-bold">City Event Planner</h1>
+                        </div>
                         <p>Find upcoming events for any city!</p>
                     </header>
-                    <div class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2">
-                        <div>
+                    <div id ="mainDataContainer" class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2 ">
+                        <div id = "mainEventsContainer" class= "lg:col-span-1 sm:col-span-2">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold">Events</h2>
                         </div>
-                        <div>
+                        <div id = "mainCalendarContainer" class=" lg:col-span-1 sm:col-span-2">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
                             <!-- Create grid of 7 columns (one for each day of the week) as divs are added to the CalnderDays div new rows will be created once the row exceeds 7 columns (a week) -->
-                            <div id="CalanderDays" class="mx-auto grid grid-cols-7 gap-0 text-center h-[53%] w-[75%] auto-rows-max border border-inherit border-y-cyan-500">
+
+                            <div id="CalanderDays" class="mx-auto grid grid-cols-7 gap-0 text-center h-fit w-[90%] auto-rows-max border border-inherit border-y-
+
                                 <div class="col-span-1 py-2 self-center place-self-center" id="backArrow"><img class="h-5" src="./assets/images/chevron-left-svgrepo-com.svg" alt=""></div>
                                 <div class="col-span-5 py-2" id="calanderTitle"></div>
                                 <div class="col-span-1 py-2 self-center place-self-center" id="forwardArrow"><img class="h-5"  src="./assets/images/chevron-right-svgrepo-com (1).svg" alt=""></div>
-                                <div class="DayName">Sun</div>
-                                <div class="DayName">Mon</div>
-                                <div class="DayName">Tues</div>
-                                <div class="DayName">Wed</div>
-                                <div class="DayName">Thurs</div>
-                                <div class="DayName">Fri</div>
-                                <div class="DayName">Sat</div>
+                                <div class="DayName sm:text-xs">Sun</div>
+                                <div class="DayName sm:text-xs">Mon</div>
+                                <div class="DayName sm:text-xs">Tue</div>
+                                <div class="DayName sm:text-xs">Wed</div>
+                                <div class="DayName sm:text-xs">Thu</div>
+                                <div class="DayName sm:text-xs">Fri</div>
+                                <div class="DayName sm:text-xs">Sat</div>
                             </div>
                         </div>
                     </div>
