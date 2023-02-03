@@ -7,6 +7,7 @@ var forwardArrow = $('#forwardArrow');
 var searchButtonElement = document.getElementById("search-button");
 var textBoxElement = document.getElementById("searchCity text-box");
 var errorMessageElement = document.getElementById("error-message");
+var countrySelectSubmit = document.getElementById('countrySelectSubmit');
 const holidayAPI = 'https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59'
 var mainEventsElement = document.getElementById("mainEventsContainer");
 
@@ -53,7 +54,7 @@ function init(){
     populateCalander(today);
 
     searchButtonElement.addEventListener("click", function(){
-        console.log(textBoxElement.value);
+        console.log(textBoxElement.value);    
         if (textBoxElement.value === null){
             console.log("here");
             errorMessageElement.textContent = "Please enter a city in the text box before clicking search."
@@ -82,6 +83,13 @@ function init(){
             console.log(apiUrl);
     })
 }
+
+// Function for submitting the country to load holidays for
+countrySelectSubmit.addEventListener('click', function(){
+    var holCountry = document.getElementById('holCountry').value;
+    localStorage.setItem('holCountryCode', holCountry);
+    getAPI(holidayAPI+'&country='+holCountry+'&year='+today.$y+'&type=national');
+})
 
 function displayEvents(tmData){
     countryCode = tmData._embedded.events[0]._embedded.venues[0].country.countryCode;
