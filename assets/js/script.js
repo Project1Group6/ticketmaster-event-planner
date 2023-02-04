@@ -102,6 +102,9 @@ function displayEvents(tmData){
         var currentEventVenueElement = document.createElement("div");
         var currentEventVenueAddressElement = document.createElement("div");
         var currentEventURLElement = document.createElement("a");
+        var currentEventElementAddToCalendar = document.createElement("button")
+        var currentEventElementContainer = document.createElement("div")
+        currentEventElementContainer.className = "currentEventElementContainer lg:w-[65%] md:w-[60%] sm:w-[65%]"
         // var maxPrice = tmData._embedded.events[i].priceRanges.max;
         // var minPrice = tmData._embedded.events[i].priceRanges.min;
         // var priceCurrency = tmData._embedded.events[i].priceRanges.currency;
@@ -111,12 +114,19 @@ function displayEvents(tmData){
         var postalCode = tmData._embedded.events[i]._embedded.venues[0].postalCode;
 
         currentEventElement.id = "main-event-element";
+        currentEventElement.className = "flex flex-row items-center px-3 border-b-[0.5px] border-white justify-between"
         currentEventStartTimeElement.id = "event-start-element";
         currentEventNameElement.id = "event-name-element";
         // currentEventPriceRangeElement.id = "event-price-element";
         currentEventVenueElement.id = "event-venue-element";
         currentEventVenueAddressElement.id = "event-address-element";
-        currentEventURLElement.id = "event-url-element";
+        currentEventURLElement.id = "event-url-element"
+        currentEventURLElement.className = "underline cursor-pointer break-words";
+
+
+
+        currentEventElementAddToCalendar.textContent = "Add to Calendar"
+        currentEventElementAddToCalendar.className="addtoCalendarButton"
 
         currentEventStartTimeElement.innerHTML = tmData._embedded.events[i].dates.start.localDate;
         currentEventNameElement.innerHTML = tmData._embedded.events[i].name
@@ -125,14 +135,16 @@ function displayEvents(tmData){
         currentEventVenueAddressElement.innerHTML = address + ", " + city + ", " + state + " " + countryCode + ", " + postalCode;
         currentEventURLElement.innerHTML = tmData._embedded.events[i].url;
 
-        currentEventElement.append(currentEventNameElement);
-        currentEventElement.append(currentEventVenueElement);
-        currentEventElement.append(currentEventVenueAddressElement);
-        currentEventElement.append(currentEventStartTimeElement);
+        currentEventElementContainer.append(currentEventNameElement);
+        currentEventElementContainer.append(currentEventVenueElement);
+        currentEventElementContainer.append(currentEventVenueAddressElement);
+        currentEventElementContainer.append(currentEventStartTimeElement);
         // currentEventElement.append(currentEventPriceRangeElement);
-        currentEventElement.append(currentEventURLElement);
-        
+        currentEventElementContainer.append(currentEventURLElement);
+        currentEventElement.append(currentEventElementContainer);
+        currentEventElement.append(currentEventElementAddToCalendar);
         mainEventsElement.append(currentEventElement);
+
     }
 }
 

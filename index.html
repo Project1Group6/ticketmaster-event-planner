@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Slab:wght@100&family=Sofia+Sans+Extra+Condensed:wght@100&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body class="bg-blue-200">
@@ -26,15 +27,20 @@
                     <div id="error-message" class = "sm:text-center px-1 text-purple-700 "></div>
                 </div>
                 <div id = "mainEventPlannerContainer" class="col-span-9 bg-sky-500/[.5] text-white md:my-10 sm:my-5 rounded shadow-lg shadow-cyan-700 flex flex-col">
-                    <header class="m-2 text-center">
+                    <header class="p-2 text-center shadow-white shadow-[0_0_1.1px_0_rgb(0,0,0,0.3)]">
                         <div id = "cityEventPlannerH1">
                         <h1 class="text-2xl font-bold">City Event Planner</h1>
                         </div>
                         <p>Find upcoming events for any city!</p>
                     </header>
                     <div id ="mainDataContainer" class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2 ">
-                        <div id = "mainEventsContainer" class= "lg:col-span-1 col-span-2 max-h-[32rem] overflow-auto">
+                        <div id = "mainEventsContainer" class= "lg:col-span-1 col-span-2 h-[80vh] overflow-auto shadow-white shadow-[0_0_1.3px_0_rgb(0,0,0,0.3)]">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold">Events</h2>
+                       <!--  
+                            <div class ="mainEventsDiv">
+                            <div id = "main-event-element"></div>
+                        </div>
+                          -->
                         </div>
                         <div id = "mainCalendarContainer" class="lg:col-span-1 col-span-2">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
