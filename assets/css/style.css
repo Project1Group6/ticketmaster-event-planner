@@ -11,7 +11,7 @@ input[type="text"] {
 }
 
 ::-webkit-scrollbar { 
-  width: 1rem;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track{
@@ -31,6 +31,33 @@ input[type="text"] {
   font-family: "Roboto Slab", serif;
   font-weight: bold;
 }
+
+.addtoCalendarButton{
+  border-color: white;
+  border-width: 1px;
+  height: 20%;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-radius: 10px;
+
+  
+}
+.addtoCalendarButton:hover{
+  background-color: white;
+  border: 0;
+  color: rgb(14 165 233) ;
+}
+.currentEventElementContainer{
+  font-family: 'Itim', cursive;
+}
+
+
+
+
+
+
+
+
 @media screen and (max-width: 639px) {
   #smallScreenHeading {
     visibility: hidden;
@@ -62,8 +89,16 @@ input[type="text"] {
   #mainEventPlannerContainer {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
-    height: 30rem;
+    height: fit-content;
   }
+  #main-event-element{
+    padding: 0;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    gap: 7px;
+    padding-bottom: 7px;
+    padding-top: 5px;
+   }
   /* Once more content added to the app,I use these IDs for further changes to responsive desing  */
   /* #mainDataContainer {
   }
@@ -86,6 +121,13 @@ input[type="text"] {
 
   /* #CalanderDays {
   } */
+  #event-url-element{
+    overflow-wrap: break-word;
+  }
+
+  .currentEventElementContainer{
+    width: 77%;
+  }
 }
 
 @media screen and (max-width: 425px) {
@@ -131,6 +173,23 @@ input[type="text"] {
   #cityEventPlannerH1 {
     display: none;
   }
+
+ #main-event-element{
+  padding: 0;
+  flex-direction: column;
+  overflow-wrap: break-word;
+  gap: 7px;
+  padding-bottom: 7px;
+  padding-top: 5px;
+ }
+ #mainEventsContainer {
+  height: 40vh;
+}
+
+.currentEventElementContainer{
+width: 77%;
+}
+
   /* Once more content added to the app,I use these IDs for further changes to responsive desing  */
 
   /* #mainDataContainer {
