@@ -93,18 +93,19 @@ countrySelectSubmit.addEventListener('click', function(){
 
 function displayEvents(tmData){
     countryCode = tmData._embedded.events[0]._embedded.venues[0].country.countryCode;
-    console.log(countryCode);
+    console.log(tmData._embedded.events[0]._embedded);
     for (var i = 0; i < tmData._embedded.events.length; i++){
         var currentEventElement = document.createElement("div");
         var currentEventStartTimeElement = document.createElement("div");
         var currentEventNameElement = document.createElement("div");
+        var currentEventimage = document.createElement("img");
         // var currentEventPriceRangeElement = document.createElement("div");
         var currentEventVenueElement = document.createElement("div");
         var currentEventVenueAddressElement = document.createElement("div");
         var currentEventURLElement = document.createElement("a");
         var currentEventElementAddToCalendar = document.createElement("button")
         var currentEventElementContainer = document.createElement("div")
-        currentEventElementContainer.className = "currentEventElementContainer lg:w-[65%] md:w-[60%] sm:w-[65%]"
+        currentEventElementContainer.className = "currentEventElementContainer"
         // var maxPrice = tmData._embedded.events[i].priceRanges.max;
         // var minPrice = tmData._embedded.events[i].priceRanges.min;
         // var priceCurrency = tmData._embedded.events[i].priceRanges.currency;
@@ -114,7 +115,7 @@ function displayEvents(tmData){
         var postalCode = tmData._embedded.events[i]._embedded.venues[0].postalCode;
 
         currentEventElement.id = "main-event-element";
-        currentEventElement.className = "flex flex-row items-center px-3 border-b-[0.5px] border-white justify-between"
+        currentEventElement.className = "items-center m-3 p-3 justify-between rounded shadow-lg shadow-cyan-700 bg-[#FFC93C]"
         currentEventStartTimeElement.id = "event-start-element";
         currentEventNameElement.id = "event-name-element";
         // currentEventPriceRangeElement.id = "event-price-element";
@@ -126,23 +127,26 @@ function displayEvents(tmData){
 
 
         currentEventElementAddToCalendar.textContent = "Add to Calendar"
-        currentEventElementAddToCalendar.className="addtoCalendarButton"
+        currentEventElementAddToCalendar.className="addtoCalendarButton ml-3"
 
         currentEventStartTimeElement.innerHTML = tmData._embedded.events[i].dates.start.localDate;
-        currentEventNameElement.innerHTML = tmData._embedded.events[i].name
+        currentEventNameElement.innerHTML = tmData._embedded.events[i].name + " (" + tmData._embedded.events[i].dates.start.localDate + ")";
+        currentEventimage.src = tmData._embedded.events[i].images[0].url
+        currentEventimage.className = "w-[50%]"
         // currentEventPriceRangeElement.innerHTML = minPrice + "-" + maxPrice + " " + priceCurrency
         currentEventVenueElement.innerHTML = tmData._embedded.events[i]._embedded.venues[0].name
         currentEventVenueAddressElement.innerHTML = address + ", " + city + ", " + state + " " + countryCode + ", " + postalCode;
-        currentEventURLElement.innerHTML = tmData._embedded.events[i].url;
-
+        currentEventURLElement.href = tmData._embedded.events[i].url;
+        currentEventURLElement.innerHTML = "Click Here for More Info"
         currentEventElementContainer.append(currentEventNameElement);
+        currentEventElementContainer.append(currentEventimage);
         currentEventElementContainer.append(currentEventVenueElement);
         currentEventElementContainer.append(currentEventVenueAddressElement);
-        currentEventElementContainer.append(currentEventStartTimeElement);
+        
         // currentEventElement.append(currentEventPriceRangeElement);
         currentEventElementContainer.append(currentEventURLElement);
+        currentEventElementContainer.append(currentEventElementAddToCalendar);
         currentEventElement.append(currentEventElementContainer);
-        currentEventElement.append(currentEventElementAddToCalendar);
         mainEventsElement.append(currentEventElement);
 
     }
