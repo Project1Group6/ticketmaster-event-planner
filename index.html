@@ -42,8 +42,20 @@
                         </div>
                           -->
                         </div>
+                        <!-- Dropdown menu to select country for holidays -->
+
                         <div id = "mainCalendarContainer" class="lg:col-span-1 col-span-2">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
+                            <div id="countrySelect" class="m-2">
+                                <label for="holCountry">Choose your country:</label>
+                                <select name="holCountry" id="holCountry" class="text-black">
+                                    <option value="CA">Canada</option>
+                                    <option value="US">United States</option>
+                                    <option value="MX">Mexico</option>
+                                </select>
+                                <!-- button to submit country -->
+                                <button id="countrySelectSubmit">Submit</button>
+                                </div>
                             <!-- Create grid of 7 columns (one for each day of the week) as divs are added to the CalnderDays div new rows will be created once the row exceeds 7 columns (a week) -->
 
                             <div id="CalanderDays" class="mx-auto grid grid-cols-7 gap-0 text-center h-fit w-[90%] auto-rows-max border border-inherit  border-y-cyan-500">
@@ -59,17 +71,7 @@
                                 <div class="DayName sm:text-xs">Fri</div>
                                 <div class="DayName sm:text-xs">Sat</div>
                             </div>
-                            <!-- Dropdown menu to select country for holidays -->
-                            <div id="countrySelect">
-                            <label for="holCountry">Choose your country:</label>
-                            <select name="holCountry" id="holCountry">
-                                <option value="CA">Canada</option>
-                                <option value="US">United States</option>
-                                <option value="MX">Mexico</option>
-                            </select>
-                            <!-- button to submit country -->
-                            <button id="countrySelectSubmit">Submit</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
