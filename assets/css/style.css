@@ -168,14 +168,14 @@ input[type="text"] {
   #mainEventPlannerContainer {
     margin-top: 0;
     margin-bottom: 0;
-    height: 80vh;
+    height: 100vh;
   }
   #cityEventPlannerH1 {
     display: none;
   }
 
  #main-event-element{
-  padding: 0;
+  padding: 10px;
   flex-direction: column;
   overflow-wrap: break-word;
   gap: 7px;

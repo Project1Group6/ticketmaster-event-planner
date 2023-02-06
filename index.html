@@ -46,15 +46,15 @@
 
                         <div id = "mainCalendarContainer" class="lg:col-span-1 col-span-2">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
-                            <div id="countrySelect" class="m-2">
-                                <label for="holCountry">Choose your country:</label>
-                                <select name="holCountry" id="holCountry" class="text-black">
+                            <div id="countrySelect" class="m-2 flex justify-center mt-6">
+                                <label class="mr-2" for="holCountry">Choose your country:</label>
+                                <select name="holCountry" id="holCountry" class="text-[rgb(14,165,233)] mr-2 text-center">
                                     <option value="CA">Canada</option>
                                     <option value="US">United States</option>
                                     <option value="MX">Mexico</option>
                                 </select>
                                 <!-- button to submit country -->
-                                <button id="countrySelectSubmit">Submit</button>
+                                <button class="border-white border px-2 rounded-lg hover:bg-white hover:text-[rgb(14,165,233)]" id="countrySelectSubmit">Submit</button>
                                 </div>
                             <!-- Create grid of 7 columns (one for each day of the week) as divs are added to the CalnderDays div new rows will be created once the row exceeds 7 columns (a week) -->
 
