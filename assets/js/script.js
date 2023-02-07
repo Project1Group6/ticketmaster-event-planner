@@ -14,7 +14,6 @@ const holidayAPI =
   "https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59";
 var mainEventsElement = document.getElementById("mainEventsContainer");
 var searchHistory = [];
-var holidayToCal = {holiday:'', date:'', description:''};
 var holCountry = document.getElementById("holCountry").value;
 var holidays = [];
 
@@ -60,16 +59,26 @@ function populateCalander(date){
             calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
             calenderDays.eq(i).data('localStorageKey',currentDate.format('YYYY-MM-DD'));
         }
+        console.log(holidays)
+        if(holidays.length > 0){
+          console.log(holidays.length)
+        } else if (holidays.length === 0) {
+          console.log(0)
+        }
+        for(f = 0; f < holidays.length; f++){
+        if(holidays[f].holidayDate == currentDate){
+          
+          calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
+          console.log(holidays[f])
+        }
+      }
         day++;
-    }
+    }  
 }
 
 function init() {
   // This function is called when the page is loaded
   // the purpose of the function is to create a calander object and populate with current month
-  createCalander();
-  populateCalander(today);
-  loadCountry();
   getAPI(
     holidayAPI +
       "&country=" +
@@ -78,6 +87,16 @@ function init() {
       today.$y +
       "&type=national"
   );
+  loadCountry();
+  createCalander();
+  populateCalander(today);
+  if(localStorage.getItem('holCountryCode') === null){
+    localStorage.setItem('holCountryCode', 'CA')
+  }
+  var savedCountry = localStorage.getItem("holCountryCode");
+  holCountry = savedCountry;
+  console.log(holidays)
+  console.log(holidays[1])
   //searchHistory = localStorage.getItem("searchHistory");
   searchButtonElement.addEventListener("click", function () {
     console.log(textBoxElement.value);
@@ -119,8 +138,8 @@ function init() {
 
 // Autopopulate the dropdown with the correct country from storage
 function loadCountry(){
-  var savedCountry = localStorage.getItem("holCountryCode");
-  countryDropdown.value = savedCountry;
+  var savedCountry = localStorage.getItem('holCountryCode')
+  document.getElementById('holCountry').value = savedCountry
 }
 
 function displaySearchHistory(city, searchHistory) {
@@ -194,6 +213,7 @@ function addEventSearchHistory(btn, index) {
 
 // Function for submitting the country to load holidays for
 countrySelectSubmit.addEventListener("click", function () {
+  holidays = [];
   holCountry = document.getElementById('holCountry').value;
   localStorage.setItem("holCountryCode", holCountry);
   getAPI(
@@ -206,16 +226,16 @@ countrySelectSubmit.addEventListener("click", function () {
   );
 });
 
- function loadHolidays() {
-  for (var i = 0; i < holidayData.response.holidays.length; i++) {   
-  holidayToCal.holiday = holidayData.response.holidays[i].name;
-  holidayToCal.date = holidayData.response.holidays[i].date.datetime;
-  holidayToCal.description = holidayData.response.holidays[i].description;
-  console.log(holidayToCal)
-  holidays.push(holidayToCal.holiday = holidayData.response.holidays[i].name)
+function loadHolidays() {
+  for (var i = 0; i < holidayData.response.holidays.length; i++) {  
+    // holidayDate = holidayData.response.holidays[i].date.iso;
+    holidays.push({holidayDate:holidayData.response.holidays[i].date.iso, holiday:holidayData.response.holidays[i].name});
   }
-  console.log(holidays)
-  console.log(holidayData)
+  console.log(holidays[1])
+  pushHolidays()
+}
+
+function pushHolidays() {
 }
 
 function displayEvents(tmData) {
@@ -321,7 +341,9 @@ calnder.on('click', '.dayDiv', showEventForDay);
 function showEventForDay(event) {
     var dateClicked = $(event.target);
     var key = dateClicked.data('localStorageKey')
+    console.log(dateClicked.data())
     data = JSON.parse(localStorage.getItem(key))
+    console.log(data)
     $('.dayEvent').remove();
     for (i = 0; i < data.length; i++) {
       listItem = $('<li>')
