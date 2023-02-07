@@ -274,6 +274,16 @@ function displayEvents(tmData) {
   }
 }
 
+function checkEvents(array, event){
+  for(var i=0; i<array.length; i++){
+    if (array[i].event == event){
+      return true;
+    }
+  }
+  return false;
+}
+
+
 function addEvent(btn, index) {
   btn.addEventListener("click", function clicked() {
     createCalanderEvent();
@@ -282,6 +292,7 @@ function addEvent(btn, index) {
 $(mainEventsElement).on('click', '.addtoCalendarButton', createCalanderEvent);
 function createCalanderEvent(event){
     var btnClicked = $(event.target);
+    btnClicked.attr('disabled', true);
     event = btnClicked.parent('div').children().eq(0).text().split('(')[0];
     date = btnClicked.parent('div').children().eq(0).text().split('(')[1].replace(")", "");
     url = btnClicked.parent('div').children().eq(4).attr('href');
@@ -289,10 +300,14 @@ function createCalanderEvent(event){
     if (eventList === null) {
       eventList = [];
     }
-    eventList.push({event:event, url:url})
-    localStorage.setItem(date, JSON.stringify(eventList))
+    eventAdded = checkEvents(eventList, event)
+    if (!eventAdded){
+      eventList.push({event:event, url:url})
+      localStorage.setItem(date, JSON.stringify(eventList))
+    }
     firstOfMonth =  date.split('-')[0] + '-' + date.split('-')[1] + '-01'
     populateCalander(dayjs(firstOfMonth))
+    
 }
 calnder.on('click', '.dayDiv', showEventForDay);
 function showEventForDay(event) {
