@@ -9,6 +9,7 @@ var searchButtonElement = document.getElementById("search-button");
 var textBoxElement = document.getElementById("searchCity text-box");
 var errorMessageElement = document.getElementById("error-message");
 var countrySelectSubmit = document.getElementById("countrySelectSubmit");
+var countryDropdown = document.getElementById('holCountry');
 const holidayAPI =
   "https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59";
 var mainEventsElement = document.getElementById("mainEventsContainer");
@@ -64,6 +65,7 @@ function init() {
   // the purpose of the function is to create a calander object and populate with current month
   createCalander();
   populateCalander(today);
+  loadCountry();
 
   //searchHistory = localStorage.getItem("searchHistory");
   searchButtonElement.addEventListener("click", function () {
@@ -102,6 +104,12 @@ function init() {
       });
     console.log(apiUrl);
   });
+}
+
+// Autopopulate the dropdown with the correct country from storage
+function loadCountry(){
+  var savedCountry = localStorage.getItem("holCountryCode");
+  countryDropdown.value = savedCountry;
 }
 
 function displaySearchHistory(city, searchHistory) {
