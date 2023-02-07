@@ -1,15 +1,15 @@
 //Global Variables
 var today = dayjs();
-var eventList = $('#eventList');
-var calnder = $('#CalanderDays');
-var calnderTitle = $('#calanderTitle');
-var backArrow = $('#backArrow');
-var forwardArrow = $('#forwardArrow');
+var eventList = $("#eventList");
+var calnder = $("#CalanderDays");
+var calnderTitle = $("#calanderTitle");
+var backArrow = $("#backArrow");
+var forwardArrow = $("#forwardArrow");
 var searchButtonElement = document.getElementById("search-button");
 var textBoxElement = document.getElementById("searchCity text-box");
 var errorMessageElement = document.getElementById("error-message");
 var countrySelectSubmit = document.getElementById("countrySelectSubmit");
-var countryDropdown = document.getElementById('holCountry');
+var countryDropdown = document.getElementById("holCountry");
 const holidayAPI =
   "https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59";
 var mainEventsElement = document.getElementById("mainEventsContainer");
@@ -36,44 +36,35 @@ async function getAPI(url) {
   loadHolidays();
 }
 
-function populateCalander(date){
-    // given a dayJS date object this function will populate the calander
+function populateCalander(date) {
+  // given a dayJS date object this function will populate the calander
 
-    localStorage.setItem("currentCalanderPosition", date); // set the new date as the current calander date in localstorage
-    daysInMonth = date.daysInMonth(); // get the amount of days in the mont 30, 31, 28, or 29
-    startDay = dayjs(date.year() + '-' + date.format('MM')  + '-01').day(); // get which day of the week is the 1st of the month Sunday = 0 to Saturday = 6
-    calnderTitle.text(date.format('MMMM YYYY')); // set Title of the calander equal to full month and year (ex: January 2023)
-    var calenderDays = $('.dayDiv');
-    calenderDays.removeClass('bg-red-500 cursor-pointer');
-    calenderDays.text(''); // clear current calander
+  localStorage.setItem("currentCalanderPosition", date); // set the new date as the current calander date in localstorage
+  daysInMonth = date.daysInMonth(); // get the amount of days in the mont 30, 31, 28, or 29
+  startDay = dayjs(date.year() + "-" + date.format("MM") + "-01").day(); // get which day of the week is the 1st of the month Sunday = 0 to Saturday = 6
+  calnderTitle.text(date.format("MMMM YYYY")); // set Title of the calander equal to full month and year (ex: January 2023)
+  var calenderDays = $(".dayDiv");
+  calenderDays.removeClass("bg-sky-500 cursor-pointer");
+  calenderDays.text(""); // clear current calander
 
-    // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
-    // add a number start from 1 till the daysInMonth
-    var day=1;
-    for(i = startDay; i < daysInMonth + startDay; i++){
-        calenderDays.eq(i).text(day);
-        currentDate = dayjs(date.year() + '-' + date.format('MM')  + '-' + day);
-        var eventExist = null;
-        eventExist = JSON.parse(localStorage.getItem(currentDate.format('YYYY-MM-DD'))); 
-        if (eventExist !== null) {
-            calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
-            calenderDays.eq(i).data('localStorageKey',currentDate.format('YYYY-MM-DD'));
-        }
-        console.log(holidays)
-        if(holidays.length > 0){
-          console.log(holidays.length)
-        } else if (holidays.length === 0) {
-          console.log(0)
-        }
-        for(f = 0; f < holidays.length; f++){
-        if(holidays[f].holidayDate == currentDate){
-          
-          calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
-          console.log(holidays[f])
-        }
-      }
-        day++;
-    }  
+  // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
+  // add a number start from 1 till the daysInMonth
+  var day = 1;
+  for (i = startDay; i < daysInMonth + startDay; i++) {
+    calenderDays.eq(i).text(day);
+    currentDate = dayjs(date.year() + "-" + date.format("MM") + "-" + day);
+    var eventExist = null;
+    eventExist = JSON.parse(
+      localStorage.getItem(currentDate.format("YYYY-MM-DD"))
+    );
+    if (eventExist !== null) {
+      calenderDays.eq(i).addClass("bg-sky-500 cursor-pointer border rounded-lg");
+      calenderDays
+        .eq(i)
+        .data("localStorageKey", currentDate.format("YYYY-MM-DD"));
+    }
+    day++;
+  }
 }
 
 function init() {
@@ -99,47 +90,48 @@ function init() {
   console.log(holidays[1])
   //searchHistory = localStorage.getItem("searchHistory");
   searchButtonElement.addEventListener("click", function () {
+    errorMessageElement.textContent ="";
     console.log(textBoxElement.value);
-    if (textBoxElement.value === null) {
+    if (!textBoxElement.value) {
       //console.log("here");
       errorMessageElement.textContent =
         "Please enter a city in the text box before clicking search.";
-    }
-
-    //var city = $('#input:text').val();
-    var city = textBoxElement.value;
-    displaySearchHistory(city, searchHistory);
-    //console.log(textBoxElement);
-    apiUrl =
-      "https://app.ticketmaster.com/discovery/v2/events.json?city=" +
-      city +
-      "&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe";
-    //apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?city=Toronto&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe"
-    fetch(apiUrl)
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (tmData) {
-            console.log(tmData);
-            displayEvents(tmData);
-          });
-        } else {
-          alert("Error: " + response.statusText);
+    } else {
+      //var city = $('#input:text').val();
+      var city = textBoxElement.value;
+      displaySearchHistory(city, searchHistory);
+      //console.log(textBoxElement);
+      apiUrl =
+        "https://app.ticketmaster.com/discovery/v2/events.json?city=" +
+        city +
+        "&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe";
+      //apiUrl = "https://app.ticketmaster.com/discovery/v2/events.json?city=Toronto&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe"
+      fetch(apiUrl)
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (tmData) {
+              console.log(tmData);
+              displayEvents(tmData);
+            });
+          } else {
+            alert("Error: " + response.statusText);
+            errorMessageElement.textContent =
+              "Error when connecting to the Ticket Master API.";
+          }
+        })
+        .catch(function (error) {
           errorMessageElement.textContent =
-            "Error when connecting to the Ticket Master API.";
-        }
-      })
-      .catch(function (error) {
-        errorMessageElement.textContent =
-          "Unable to connect to the Ticket Master API.";
-      });
+            "Unable to connect to the Ticket Master API.";
+        });
+    }
     console.log(apiUrl);
   });
 }
 
 // Autopopulate the dropdown with the correct country from storage
-function loadCountry(){
-  var savedCountry = localStorage.getItem('holCountryCode')
-  document.getElementById('holCountry').value = savedCountry
+function loadCountry() {
+  var savedCountry = localStorage.getItem("holCountryCode");
+  countryDropdown.value = savedCountry;
 }
 
 function displaySearchHistory(city, searchHistory) {
@@ -180,33 +172,33 @@ function addEventSearchHistory(btn, index) {
     textBoxElement = document.getElementById("searchCity text-box");
     textBoxElement.value = btn.innerHTML;
     console.log(textBoxElement.value);
-    if (textBoxElement.value === null) {
+    if (!textBoxElement.value) {
       errorMessageElement.textContent =
         "Please enter a city in the text box before clicking search.";
-    }
-
-    var city = textBoxElement.value;
-    apiUrl =
-      "https://app.ticketmaster.com/discovery/v2/events.json?city=" +
-      city +
-      "&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe";
-    fetch(apiUrl)
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (tmData) {
-            console.log(tmData);
-            displayEvents(tmData);
-          });
-        } else {
-          alert("Error: " + response.statusText);
+    } else {
+      var city = textBoxElement.value;
+      apiUrl =
+        "https://app.ticketmaster.com/discovery/v2/events.json?city=" +
+        city +
+        "&apikey=ATjnFqwp5A4bNejs4zVA3QmsmFLjklKe";
+      fetch(apiUrl)
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (tmData) {
+              console.log(tmData);
+              displayEvents(tmData);
+            });
+          } else {
+            alert("Error: " + response.statusText);
+            errorMessageElement.textContent =
+              "Error when connecting to the Ticket Master API.";
+          }
+        })
+        .catch(function (error) {
           errorMessageElement.textContent =
-            "Error when connecting to the Ticket Master API.";
-        }
-      })
-      .catch(function (error) {
-        errorMessageElement.textContent =
-          "Unable to connect to the Ticket Master API.";
-      });
+            "Unable to connect to the Ticket Master API.";
+        });
+    }
     console.log(apiUrl);
   });
 }
@@ -317,43 +309,79 @@ function displayEvents(tmData) {
   }
 }
 
+function checkEvents(array, event) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i].event == event) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function addEvent(btn, index) {
   btn.addEventListener("click", function clicked() {
     createCalanderEvent();
   });
 }
-$(mainEventsElement).on('click', '.addtoCalendarButton', createCalanderEvent);
-function createCalanderEvent(event){
-    var btnClicked = $(event.target);
-    event = btnClicked.parent('div').children().eq(0).text().split('(')[0];
-    date = btnClicked.parent('div').children().eq(0).text().split('(')[1].replace(")", "");
-    url = btnClicked.parent('div').children().eq(4).attr('href');
-    var eventList = JSON.parse(localStorage.getItem(date))
-    if (eventList === null) {
-      eventList = [];
-    }
-    eventList.push({event:event, url:url})
-    localStorage.setItem(date, JSON.stringify(eventList))
-    firstOfMonth =  date.split('-')[0] + '-' + date.split('-')[1] + '-01'
-    populateCalander(dayjs(firstOfMonth))
+$(mainEventsElement).on("click", ".addtoCalendarButton", createCalanderEvent);
+function createCalanderEvent(event) {
+  var btnClicked = $(event.target);
+  btnClicked.attr("disabled", true);
+  event = btnClicked.parent("div").children().eq(0).text().split("(")[0];
+  date = btnClicked
+    .parent("div")
+    .children()
+    .eq(0)
+    .text()
+    .split("(")[1]
+    .replace(")", "");
+  url = btnClicked.parent("div").children().eq(4).attr("href");
+  img = btnClicked.parent("div").children().eq(1).attr("src");
+  address= btnClicked.parent("div").children().eq(3).text();
+  var eventList = JSON.parse(localStorage.getItem(date));
+  if (eventList === null) {
+    eventList = [];
+  }
+  eventAdded = checkEvents(eventList, event);
+  if (!eventAdded) {
+    eventList.push({ event: event, url: url, img: img , address: address});
+    localStorage.setItem(date, JSON.stringify(eventList));
+  }
+  firstOfMonth = date.split("-")[0] + "-" + date.split("-")[1] + "-01";
+  populateCalander(dayjs(firstOfMonth));
 }
-calnder.on('click', '.dayDiv', showEventForDay);
+calnder.on("click", ".dayDiv", showEventForDay);
 function showEventForDay(event) {
-    var dateClicked = $(event.target);
-    var key = dateClicked.data('localStorageKey')
-    console.log(dateClicked.data())
-    data = JSON.parse(localStorage.getItem(key))
-    console.log(data)
-    $('.dayEvent').remove();
-    for (i = 0; i < data.length; i++) {
-      listItem = $('<li>')
-      listItem.addClass('dayEvent p-2')
-      eventLink = $('<a href="' + data[i].url + '">');
-      eventLink.text(data[i].event);
-      eventLink.appendTo(listItem);
-      listItem.appendTo(eventList);
-    }
-    
+  var dateClicked = $(event.target);
+  var key = dateClicked.data("localStorageKey");
+  data = JSON.parse(localStorage.getItem(key));
+  $(".dayEvent").remove();
+  for (i = 0; i < data.length; i++) {
+    listItem = $("<li>");
+    listItem.addClass("dayEvent p-2 rounded-lg");
+
+
+    eventLink = $('<a href="' + data[i].url + '">');
+    eventLink.text(data[i].event);
+    eventLink.appendTo(listItem);
+
+
+
+
+    imgTile=$('<img src= "'+ data[i].img + '"/>');
+    imgTile.addClass("h-10 w-10");
+    imgTile.appendTo(listItem);
+
+    addressTile = $('<p>'+ data[i].address +' </p>')
+    addressTile.addClass("");
+    addressTile.appendTo(listItem);
+
+
+
+    listItem.appendTo(eventList);
+
+
+  }
 }
 
 window.addEventListener("load", init);
