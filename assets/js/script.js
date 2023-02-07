@@ -14,6 +14,9 @@ const holidayAPI =
   "https://calendarific.com/api/v2/holidays?api_key=1997f5bd2574c495866661ced19c3046b8a7ff59";
 var mainEventsElement = document.getElementById("mainEventsContainer");
 var searchHistory = [];
+var holidayToCal = {holiday:'', date:'', description:''};
+var holCountry = document.getElementById("holCountry").value;
+var holidays = [];
 
 function createCalander() {
   // create 42 divs representing the days to cover all possible distributions of days
@@ -31,6 +34,7 @@ var holidayData;
 async function getAPI(url) {
   const response = await fetch(url);
   holidayData = await response.json();
+  loadHolidays();
 }
 
 function populateCalander(date){
@@ -66,7 +70,14 @@ function init() {
   createCalander();
   populateCalander(today);
   loadCountry();
-
+  getAPI(
+    holidayAPI +
+      "&country=" +
+      holCountry +
+      "&year=" +
+      today.$y +
+      "&type=national"
+  );
   //searchHistory = localStorage.getItem("searchHistory");
   searchButtonElement.addEventListener("click", function () {
     console.log(textBoxElement.value);
@@ -183,7 +194,7 @@ function addEventSearchHistory(btn, index) {
 
 // Function for submitting the country to load holidays for
 countrySelectSubmit.addEventListener("click", function () {
-  var holCountry = document.getElementById("holCountry").value;
+  holCountry = document.getElementById('holCountry').value;
   localStorage.setItem("holCountryCode", holCountry);
   getAPI(
     holidayAPI +
@@ -194,6 +205,18 @@ countrySelectSubmit.addEventListener("click", function () {
       "&type=national"
   );
 });
+
+ function loadHolidays() {
+  for (var i = 0; i < holidayData.response.holidays.length; i++) {   
+  holidayToCal.holiday = holidayData.response.holidays[i].name;
+  holidayToCal.date = holidayData.response.holidays[i].date.datetime;
+  holidayToCal.description = holidayData.response.holidays[i].description;
+  console.log(holidayToCal)
+  holidays.push(holidayToCal.holiday = holidayData.response.holidays[i].name)
+  }
+  console.log(holidays)
+  console.log(holidayData)
+}
 
 function displayEvents(tmData) {
   countryCode =
@@ -310,6 +333,7 @@ function showEventForDay(event) {
     }
     
 }
+
 window.addEventListener("load", init);
 backArrow.on("click", function () {
   var currentCalanderPosition = dayjs(
