@@ -1,9 +1,10 @@
 //Global Variables
 var today = dayjs();
-var calnder = $("#CalanderDays");
-var calnderTitle = $("#calanderTitle");
-var backArrow = $("#backArrow");
-var forwardArrow = $("#forwardArrow");
+var eventList = $('#eventList');
+var calnder = $('#CalanderDays');
+var calnderTitle = $('#calanderTitle');
+var backArrow = $('#backArrow');
+var forwardArrow = $('#forwardArrow');
 var searchButtonElement = document.getElementById("search-button");
 var textBoxElement = document.getElementById("searchCity text-box");
 var errorMessageElement = document.getElementById("error-message");
@@ -31,22 +32,31 @@ async function getAPI(url) {
   holidayData = await response.json();
 }
 
-function populateCalander(date) {
-  // given a dayJS date object this function will populate the calander
-  localStorage.setItem("currentCalanderPosition", date); // set the new date as the current calander date in localstorage
-  daysInMonth = date.daysInMonth(); // get the amount of days in the mont 30, 31, 28, or 29
-  startDay = date.day(); // get which day of the week is the 1st of the month Sunday = 0 to Saturday = 6
-  calnderTitle.text(date.format("MMMM YYYY")); // set Title of the calander equal to full month and year (ex: January 2023)
-  var calenderDays = $(".dayDiv");
-  calenderDays.text(""); // clear current calander
+function populateCalander(date){
+    // given a dayJS date object this function will populate the calander
 
-  // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
-  // add a number start from 1 till the daysInMonth
-  var day = 1;
-  for (i = startDay; i < daysInMonth + startDay; i++) {
-    calenderDays.eq(i).text(day);
-    day++;
-  }
+    localStorage.setItem("currentCalanderPosition", date); // set the new date as the current calander date in localstorage
+    daysInMonth = date.daysInMonth(); // get the amount of days in the mont 30, 31, 28, or 29
+    startDay = dayjs(date.year() + '-' + date.format('MM')  + '-01').day(); // get which day of the week is the 1st of the month Sunday = 0 to Saturday = 6
+    calnderTitle.text(date.format('MMMM YYYY')); // set Title of the calander equal to full month and year (ex: January 2023)
+    var calenderDays = $('.dayDiv');
+    calenderDays.removeClass('bg-red-500 cursor-pointer');
+    calenderDays.text(''); // clear current calander
+
+    // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
+    // add a number start from 1 till the daysInMonth
+    var day=1;
+    for(i = startDay; i < daysInMonth + startDay; i++){
+        calenderDays.eq(i).text(day);
+        currentDate = dayjs(date.year() + '-' + date.format('MM')  + '-' + day);
+        var eventExist = null;
+        eventExist = JSON.parse(localStorage.getItem(currentDate.format('YYYY-MM-DD'))); 
+        if (eventExist !== null) {
+            calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
+            calenderDays.eq(i).data('localStorageKey',currentDate.format('YYYY-MM-DD'));
+        }
+        day++;
+    }
 }
 
 function init() {
@@ -261,11 +271,37 @@ function addEvent(btn, index) {
     createCalanderEvent();
   });
 }
-
-function createCalanderEvent() {
-  console.log("here");
+$(mainEventsElement).on('click', '.addtoCalendarButton', createCalanderEvent);
+function createCalanderEvent(event){
+    var btnClicked = $(event.target);
+    event = btnClicked.parent('div').children().eq(0).text().split('(')[0];
+    date = btnClicked.parent('div').children().eq(0).text().split('(')[1].replace(")", "");
+    url = btnClicked.parent('div').children().eq(4).attr('href');
+    var eventList = JSON.parse(localStorage.getItem(date))
+    if (eventList === null) {
+      eventList = [];
+    }
+    eventList.push({event:event, url:url})
+    localStorage.setItem(date, JSON.stringify(eventList))
+    firstOfMonth =  date.split('-')[0] + '-' + date.split('-')[1] + '-01'
+    populateCalander(dayjs(firstOfMonth))
 }
-
+calnder.on('click', '.dayDiv', showEventForDay);
+function showEventForDay(event) {
+    var dateClicked = $(event.target);
+    var key = dateClicked.data('localStorageKey')
+    data = JSON.parse(localStorage.getItem(key))
+    $('.dayEvent').remove();
+    for (i = 0; i < data.length; i++) {
+      listItem = $('<li>')
+      listItem.addClass('dayEvent p-2')
+      eventLink = $('<a href="' + data[i].url + '">');
+      eventLink.text(data[i].event);
+      eventLink.appendTo(listItem);
+      listItem.appendTo(eventList);
+    }
+    
+}
 window.addEventListener("load", init);
 backArrow.on("click", function () {
   var currentCalanderPosition = dayjs(
@@ -282,5 +318,3 @@ forwardArrow.on("click", function () {
   var newDate = currentCalanderPosition.add(1, "month"); // add a month to the current calander date
   populateCalander(newDate); // populate calander with new month
 });
-
-//init();
