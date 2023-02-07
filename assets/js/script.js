@@ -44,27 +44,29 @@ function populateCalander(date) {
   startDay = dayjs(date.year() + "-" + date.format("MM") + "-01").day(); // get which day of the week is the 1st of the month Sunday = 0 to Saturday = 6
   calnderTitle.text(date.format("MMMM YYYY")); // set Title of the calander equal to full month and year (ex: January 2023)
   var calenderDays = $(".dayDiv");
-  calenderDays.removeClass("bg-sky-500 cursor-pointer");
+  calenderDays.removeClass("bg-red-500 cursor-pointer");
   calenderDays.text(""); // clear current calander
 
-  // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
-  // add a number start from 1 till the daysInMonth
-  var day = 1;
-  for (i = startDay; i < daysInMonth + startDay; i++) {
-    calenderDays.eq(i).text(day);
-    currentDate = dayjs(date.year() + "-" + date.format("MM") + "-" + day);
-    var eventExist = null;
-    eventExist = JSON.parse(
-      localStorage.getItem(currentDate.format("YYYY-MM-DD"))
-    );
-    if (eventExist !== null) {
-      calenderDays.eq(i).addClass("bg-sky-500 cursor-pointer border rounded-lg");
-      calenderDays
-        .eq(i)
-        .data("localStorageKey", currentDate.format("YYYY-MM-DD"));
-    }
-    day++;
-  }
+    // Starting from the div indexed at the start day and then go until the div indexed at the daysInMonth +  startDay
+    // add a number start from 1 till the daysInMonth
+    var day=1;
+    for(i = startDay; i < daysInMonth + startDay; i++){
+        calenderDays.eq(i).text(day);
+        currentDate = dayjs(date.year() + '-' + date.format('MM')  + '-' + day);
+        var eventExist = null;
+        eventExist = JSON.parse(localStorage.getItem(currentDate.format('YYYY-MM-DD'))); 
+        if (eventExist !== null) {
+            calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
+            calenderDays.eq(i).data('localStorageKey',currentDate.format('YYYY-MM-DD'));
+        }
+        for(f = 0; f < holidays.length; f++){
+        if(holidays[f].holidayDate === currentDate.format('YYYY-MM-DD')){
+          calenderDays.eq(i).addClass('bg-red-500 cursor-pointer');
+          calenderDays.eq(i).data('localStorageKey', holidays[f].holiday)
+        }
+      }
+        day++;
+    }  
 }
 
 function init() {
@@ -86,8 +88,6 @@ function init() {
   }
   var savedCountry = localStorage.getItem("holCountryCode");
   holCountry = savedCountry;
-  console.log(holidays)
-  console.log(holidays[1])
   //searchHistory = localStorage.getItem("searchHistory");
   searchButtonElement.addEventListener("click", function () {
     errorMessageElement.textContent ="";
@@ -216,6 +216,7 @@ countrySelectSubmit.addEventListener("click", function () {
       today.$y +
       "&type=national"
   );
+  // populateCalander(today);
 });
 
 function loadHolidays() {
@@ -223,7 +224,6 @@ function loadHolidays() {
     // holidayDate = holidayData.response.holidays[i].date.iso;
     holidays.push({holidayDate:holidayData.response.holidays[i].date.iso, holiday:holidayData.response.holidays[i].name});
   }
-  console.log(holidays[1])
   pushHolidays()
 }
 
@@ -356,6 +356,7 @@ function showEventForDay(event) {
   var key = dateClicked.data("localStorageKey");
   data = JSON.parse(localStorage.getItem(key));
   $(".dayEvent").remove();
+  if(data != null){
   for (i = 0; i < data.length; i++) {
     listItem = $("<li>");
     listItem.addClass("dayEvent p-2 rounded-lg");
@@ -380,7 +381,12 @@ function showEventForDay(event) {
 
     listItem.appendTo(eventList);
 
-
+  } 
+}else if (key != null) {
+    listItem = $('<li>')
+      listItem.addClass('dayEvent p-2')
+      listItem.text(key);
+      listItem.appendTo(eventList);
   }
 }
 
