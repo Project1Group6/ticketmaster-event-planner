@@ -1,4 +1,4 @@
-# Ticketmaster-Event-Planner
+# Travelling-Event-Planner
 
 ## Description
 
@@ -47,7 +47,7 @@ When I confirm my interest Then my selection is saved for later viewing
 ## Installation
 
 Please click on the link to get to the application
-- [Ticketmaster-Event-Planner](https://project1group6.github.io/ticketmaster-event-planner/)
+- [Travelling-Event-Planner](https://project1group6.github.io/ticketmaster-event-planner/)
 
 ## Credits
 
