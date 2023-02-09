@@ -63,7 +63,7 @@ input[type="text"] {
   background-color: rgb(14 165 233);
   width: 90%;
 }
-
+/* Media screen added to fix compatibility issues and add responsive design with tailwind CSS at screen size 639 */
 @media screen and (max-width: 639px) {
   #smallScreenHeading {
     visibility: hidden;
@@ -122,8 +122,8 @@ input[type="text"] {
     width: 77%;
   }
 }
-
-@media screen and (max-width: 425px) {
+/* Media screen added to fix compatibility issues and add responsive design with tailwind CSS at screen size 425 */
+@media screen and (max-width: 425px) { 
   #smallScreenHeading {
     visibility: visible;
     text-align: center;
@@ -182,6 +182,4 @@ input[type="text"] {
   .currentEventElementContainer {
     width: 77%;
   }
-
-  
 }
