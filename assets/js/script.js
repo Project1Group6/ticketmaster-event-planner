@@ -206,6 +206,7 @@ countrySelectSubmit.addEventListener("click", function () {
       today.$y +
       "&type=national"
   );
+  populateCalander(today);
 });
 
 //Loads the information from the calendarific API and saves to local storage
