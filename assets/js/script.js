@@ -206,7 +206,7 @@ countrySelectSubmit.addEventListener("click", function () {
       today.$y +
       "&type=national"
   );
-  populateCalander(today);
+  
 });
 
 //Loads the information from the calendarific API and saves to local storage
@@ -214,6 +214,7 @@ function loadHolidays() {
   for (var i = 0; i < holidayData.response.holidays.length; i++) {
     holidays.push({holidayDate:holidayData.response.holidays[i].date.iso, holiday:holidayData.response.holidays[i].name});
   }
+  populateCalander(today);
 }
 
 //Displays the events retrieved from the TM API
