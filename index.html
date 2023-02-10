@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticketmaster Event Planner</title>
+    <title>Travelling Event Planner</title>
+    <!--Import CSS settings-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto+Slab:wght@100&family=Sofia+Sans+Extra+Condensed:wght@100&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
-<body class="bg-blue-200">
-
+<body class="bg-blue-200"> <!--Set the overall class for the body-->
     <main>
         <div id="mainContainer" class="container mx-auto px-10 sm:px-5 ">
-            <div id="smallScreenHeading">Ticket Master Event Calendar</div>
+            <div id="smallScreenHeading">Travelling Event Planner</div> <!--Only shows up for mobile devices-->
             <div id="mainGrid" class="sm:grid sm:grid-cols-12 sm:gap-2 sm:min-h-screen">
                 <div id="mainSearchContainer" class="col-span-3 bg-sky-900/[.5] text-white md:my-10 sm:my-5 rounded shadow-lg shadow-cyan-700">
                     <div id="searchDiv" class="flex flex-row border-b border-white m-2">
@@ -28,22 +28,16 @@
                 <div id = "mainEventPlannerContainer" class="col-span-9 bg-sky-900/[.5] text-white md:my-10 sm:my-5 rounded shadow-lg shadow-cyan-700 flex flex-col">
                     <header class="p-2 text-center shadow-white shadow-[0_0_1.1px_0_rgb(0,0,0,0.3)]">
                         <div id = "cityEventPlannerH1">
-                        <h1 class="text-2xl font-bold">City Event Planner</h1>
+                        <h1 class="text-2xl font-bold">Travelling Event Planner</h1>
                         </div>
                         <p>Find upcoming events for any city!</p>
                     </header>
                     <div id ="mainDataContainer" class="grid grid-cols-2 gap-2 divide-x auto-cols-auto flex-1 pb-2 ">
                         <div id = "mainEventsContainer" class= "lg:col-span-1 col-span-2 h-[80vh] overflow-auto shadow-white shadow-[0_0_1.3px_0_rgb(0,0,0,0.3)]">
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold">Events</h2>
-                       <!--  
-                            <div class ="mainEventsDiv">
-                            <div id = "main-event-element"></div>
-                        </div>
-                          -->
                         </div>
                         <!-- Dropdown menu to select country for holidays -->
-
-                        <div id = "mainCalendarContainer" class="lg:col-span-1 col-span-2">
+                        <div id = "mainCalendarContainer" class="lg:col-span-1 col-span-2"><!--Setting up the calendar container-->
                             <h2 class="m-2 text-center underline underline-offset-8 font-bold" >Your Calender</h2>
                             <div id="countrySelect" class="m-2 flex justify-center mt-6">
                                 <label class="mr-2" for="holCountry">Choose your country:</label>
@@ -56,9 +50,7 @@
                                 <button class="border-white border px-2 rounded-lg hover:bg-white hover:text-[rgb(14,165,233)]" id="countrySelectSubmit">Submit</button>
                                 </div>
                             <!-- Create grid of 7 columns (one for each day of the week) as divs are added to the CalnderDays div new rows will be created once the row exceeds 7 columns (a week) -->
-
                             <div id="CalanderDays" class="mx-auto grid grid-cols-7 gap-0 text-center h-fit w-[90%] auto-rows-max border border-inherit  border-y-cyan-500">
-
                                 <div class="col-span-1 py-2 self-center place-self-center" id="backArrow"><img class="h-5" src="./assets/images/chevron-left-svgrepo-com.svg" alt=""></div>
                                 <div class="col-span-5 py-2" id="calanderTitle"></div>
                                 <div class="col-span-1 py-2 self-center place-self-center" id="forwardArrow"><img class="h-5"  src="./assets/images/chevron-right-svgrepo-com (1).svg" alt=""></div>
@@ -82,6 +74,7 @@
             </div>
         </div>
     </main>
+    <!--Import JS settings-->
     <script src=https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js></script>
     <script src=https://code.jquery.com/jquery-3.6.3.js integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
