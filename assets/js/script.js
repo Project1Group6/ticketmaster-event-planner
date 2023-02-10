@@ -249,7 +249,7 @@ function displayEvents(tmData) {
 
     currentEventElement.id = "main-event-element";
     currentEventElement.className =
-      "items-center m-3 p-3 justify-between rounded shadow-sm shadow-cyan-700 bg-[rgb(14,165,235)]";
+      "items-center m-3 p-3 justify-between rounded shadow-sm shadow-cyan-700 bg-[rgb(26,102,189)]";
     currentEventStartTimeElement.id = "event-start-element";
     currentEventNameElement.id = "event-name-element";
     currentEventVenueElement.id = "event-venue-element";
